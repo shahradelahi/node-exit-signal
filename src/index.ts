@@ -65,11 +65,28 @@ async function exit(signal: Signal) {
   process.channel?.unref();
 
   const handlers = (exitHooks.get(signal) || []).filter((hook) => hook !== null);
-  const forceAfter = Math.max(
+  let forceAfter = Math.max(
     ...handlers
       .map(({ options }) => options.timeout)
       .filter((timeout) => typeof timeout === 'number')
   );
+
+  if (forceAfter <= 0) {
+    forceAfter = Infinity;
+
+    // Warn if we have async handlers but no timeout
+    const hasAsyncHandlers = handlers.some(
+      ({ handler }) => typeof handler === 'function' && handler.constructor.name !== 'Function'
+    );
+
+    if (hasAsyncHandlers) {
+      process.emitWarning(
+        'No timeout was specified for the exit signal handler.\nThis could lead to a deadlock if the handler never resolves.',
+        'Warning',
+        'NES-WARN002'
+      );
+    }
+  }
 
   const promises = [];
 
@@ -86,7 +103,7 @@ async function exit(signal: Signal) {
   const done = (force = false) => {
     if (force) {
       process.emitWarning(
-        'Process forcefully exited.\nThe process was terminated abruptly due to an external signal or force.',
+        'Process forcefully exited.\nThe process was terminated abruptly due to reaching the execution timeout.',
         'Warning',
         'NES-WARN001'
       );

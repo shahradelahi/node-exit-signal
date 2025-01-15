@@ -4,10 +4,15 @@ onExit((signal) => {
   console.log(signal); // eslint-disable-line no-console
 });
 
-onExit(async (signal) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  console.log(signal); // eslint-disable-line no-console
-});
+onExit(
+  async (signal) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    console.log(signal); // eslint-disable-line no-console
+  },
+  {
+    timeout: 2000,
+  }
+);
 
 // Floating intervals
 setInterval(() => {
