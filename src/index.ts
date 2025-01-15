@@ -62,9 +62,14 @@ async function exit(signal: Signal) {
   const exitCode = SIGNAL_EXIT_CODE[signal];
 
   process.exitCode = exitCode;
+  process.channel?.unref();
 
   const handlers = (exitHooks.get(signal) || []).filter((hook) => hook !== null);
-  const forceAfter = Math.max(...handlers.map(({ options }) => options.timeout ?? 5000));
+  const forceAfter = Math.max(
+    ...handlers
+      .map(({ options }) => options.timeout)
+      .filter((timeout) => typeof timeout === 'number')
+  );
 
   const promises = [];
 
@@ -131,8 +136,6 @@ export function onExitSignal(
   handler: SignalHandler,
   options: ExitOptions = {}
 ): UnsubscribeFn {
-  process.channel?.unref();
-
   const signals = Array.isArray(signal) ? signal : signal === null ? [] : [signal];
 
   const indices: number[] = [];
