@@ -71,7 +71,7 @@ async function exit(signal: Signal) {
       .filter((timeout) => typeof timeout === 'number')
   );
 
-  if (forceAfter <= 0) {
+  if (forceAfter <= 0 || !Number.isFinite(forceAfter)) {
     forceAfter = Infinity;
 
     // Warn if we have async handlers but no timeout
@@ -81,7 +81,9 @@ async function exit(signal: Signal) {
 
     if (hasAsyncHandlers) {
       process.emitWarning(
-        'No timeout was specified for the exit signal handler.\nThis could lead to a deadlock if the handler never resolves.',
+        'No timeout was specified for the exit signal handler.\n' +
+          'If the handler fails to resolve, it can result in a hanging process, potentially leading to a deadlock.\n' +
+          'Manual termination of the process may then be necessary.',
         'Warning',
         'NES-WARN002'
       );
