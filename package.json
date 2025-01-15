@@ -1,0 +1,66 @@
+{
+  "name": "exit-signal",
+  "version": "0.0.0",
+  "description": "A Node.js library for handling graceful process exits and shutdown signals.",
+  "keywords": [
+    "exit",
+    "quit",
+    "process",
+    "hook",
+    "graceful",
+    "handler",
+    "shutdown",
+    "sigterm",
+    "sigint",
+    "terminate",
+    "kill",
+    "stop",
+    "event",
+    "signal",
+    "async",
+    "asynchronous"
+  ],
+  "homepage": "https://github.com/shahradelahi/node-exit-signal",
+  "repository": "github:shahradelahi/node-exit-signal",
+  "license": "MIT",
+  "author": "Shahrad Elahi <shahrad@litehex.com> (https://github.com/shahradelahi)",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "default": "./dist/index.cjs"
+    }
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**",
+    "!**/*.d.cts"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "pnpm typecheck && eslint .",
+    "lint:fix": "eslint --fix .",
+    "prepublishOnly": "pnpm lint && pnpm build && pnpm format:check && pnpm test",
+    "test": "vitest --run",
+    "typecheck": "tsc --noEmit"
+  },
+  "prettier": "@shahrad/prettier-config",
+  "devDependencies": {
+    "@shahrad/eslint-config": "^1.0.0",
+    "@shahrad/prettier-config": "^1.1.0",
+    "@types/node": "^22.10.6",
+    "eslint": "^9.18.0",
+    "execa": "^9.5.2",
+    "globals": "^15.14.0",
+    "prettier": "^3.4.2",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.8"
+  },
+  "packageManager": "pnpm@9.15.3"
+}

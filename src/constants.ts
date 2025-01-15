@@ -1,0 +1,29 @@
+export const EXIT_SIGNAL = [
+  'SIGUSR1',
+  'SIGTERM',
+  'SIGINT',
+  'SIGPIPE',
+  'SIGHUP',
+  'SIGBREAK',
+  'SIGWINCH',
+  'SIGBUS',
+  'SIGFPE',
+  'SIGSEGV',
+  'SIGILL',
+] as const;
+
+export const SIGNAL_EXIT_CODE = {
+  SIGUSR1: 128 + 10,
+  SIGTERM: 128 + 15,
+  SIGINT: 128 + 2,
+  SIGPIPE: 128 + 13,
+  SIGHUP: 128 + 1,
+  SIGBREAK: 128 + 21,
+  SIGWINCH: 128 + 28,
+  SIGKILL: 128 + 9,
+  SIGSTOP: 128 + 19,
+  SIGBUS: 128 + 7,
+  SIGFPE: 128 + 8,
+  SIGSEGV: 128 + 11,
+  SIGILL: 128 + 4,
+};
