@@ -1,6 +1,16 @@
+import deasync from 'deasync';
+
 export function delay(ms: number): void {
-  if (Number.isNaN(ms) || ms < 0) {
-    throw new Error('Expected a non-negative number');
-  }
-  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
+  let done = false;
+  const callback = (err: Error | null) => {
+    if (err) {
+      throw err;
+    }
+
+    done = true;
+  };
+
+  setTimeout(callback, ms);
+
+  deasync.loopWhile(() => !done);
 }

@@ -49,9 +49,13 @@
     "typecheck": "tsc --noEmit"
   },
   "prettier": "@shahrad/prettier-config",
+  "dependencies": {
+    "deasync": "^0.1.30"
+  },
   "devDependencies": {
     "@shahrad/eslint-config": "^1.0.0",
     "@shahrad/prettier-config": "^1.1.0",
+    "@types/deasync": "^0.1.5",
     "@types/node": "^22.10.6",
     "eslint": "^9.18.0",
     "execa": "^9.5.2",
@@ -61,6 +65,9 @@
     "tsx": "^4.19.2",
     "typescript": "^5.7.3",
     "vitest": "^2.1.8"
+  },
+  "peerDependencies": {
+    "deasync": "^0.1.30"
   },
   "packageManager": "pnpm@9.15.3"
 }

@@ -138,7 +138,7 @@ async function exit(signal: Signal) {
       return done(true);
     }
 
-    delay(1);
+    delay(5);
   }
 
   return done();
