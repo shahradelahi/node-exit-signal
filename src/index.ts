@@ -135,10 +135,25 @@ async function exit(signal: Signal) {
 
 // -- Exported ------------------------
 
+/**
+ * Registers an exit handler that will be called on process termination.
+ *
+ * @param {SignalHandler} handler - The function to execute on exit.
+ * @param {ExitOptions} [options={}] - Optional configurations for the exit hook.
+ * @returns {UnsubscribeFn} - A function to remove the exit hook.
+ */
 export function onExit(handler: SignalHandler, options: ExitOptions = {}): UnsubscribeFn {
   return onExitSignal(EXIT_SIGNAL as unknown as Signal[], handler, options);
 }
 
+/**
+ * Registers an exit handler for a specific signal or multiple signals.
+ *
+ * @param {Signal | Signal[]} signal - The signal(s) to listen for.
+ * @param {SignalHandler} handler - The function to execute when the signal is received.
+ * @param {ExitOptions} [options={}] - Optional configurations for the exit hook.
+ * @returns {UnsubscribeFn} - A function to remove the exit hook.
+ */
 export function onExitSignal(
   signal: Signal | Signal[],
   handler: SignalHandler,
@@ -160,6 +175,9 @@ export function onExitSignal(
   };
 }
 
+/**
+ * Initiates a graceful exit by triggering the SIGINT signal.
+ */
 export function gracefullyExit() {
   exit('SIGINT');
 }
