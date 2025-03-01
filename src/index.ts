@@ -1,9 +1,9 @@
 import process from 'node:process';
 import { clearTimeout, setTimeout } from 'node:timers';
+import deasync from 'deasync';
 
 import { EXIT_SIGNAL, SIGNAL_EXIT_CODE } from '@/constants';
 import type { ExitHook, ExitOptions, Signal, SignalHandler, UnsubscribeFn } from '@/typings';
-import { delay } from '@/utils';
 
 let isRegistered = false;
 let isCalled = false;
@@ -128,18 +128,7 @@ async function exit(signal: Signal) {
   clearTimeout(asyncTimer);
 
   const start = Date.now();
-  while (true) {
-    if (isDone) {
-      break;
-    }
-
-    // Timeout for our artificial synchronous exit hook
-    if (Date.now() - start > forceAfter) {
-      return done(true);
-    }
-
-    delay(5);
-  }
+  deasync.loopWhile(() => !isDone && Date.now() - start < forceAfter);
 
   return done();
 }
