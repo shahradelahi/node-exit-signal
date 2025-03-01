@@ -24,7 +24,7 @@ npm install exit-signal
 ## 📖 Usage
 
 ```typescript
-import { onExit, onExitSignal, gracefullyExit } from 'exit-signal';
+import { gracefullyExit, onExit, onExitSignal } from 'exit-signal';
 
 // Example 1: Register a simple exit handler
 onExit(() => {
