@@ -18,6 +18,9 @@ importers:
       '@shahrad/prettier-config':
         specifier: ^1.1.0
         version: 1.1.0(prettier@3.4.2)
+      '@sindresorhus/tsconfig':
+        specifier: ^7.0.0
+        version: 7.0.0
       '@types/deasync':
         specifier: ^0.1.5
         version: 0.1.5
@@ -729,6 +732,10 @@ packages:
 
   '@sindresorhus/merge-streams@4.0.0':
     resolution: {integrity: sha512-tlqY9xq5ukxTUZBmoOp+m61cqwQD5pHJtFY3Mn8CA8ps6yghLH/Hw8UPdqg4OLmFW3IFlcXnQNmo/dh8HzXYIQ==}
+    engines: {node: '>=18'}
+
+  '@sindresorhus/tsconfig@7.0.0':
+    resolution: {integrity: sha512-i5K04hLAP44Af16zmDjG07E1NHuDgCM07SJAT4gY0LZSRrWYzwt4qkLem6TIbIVh0k51RkN2bF+lP+lM5eC9fw==}
     engines: {node: '>=18'}
 
   '@types/deasync@0.1.5':
@@ -2178,6 +2185,8 @@ snapshots:
       - supports-color
 
   '@sindresorhus/merge-streams@4.0.0': {}
+
+  '@sindresorhus/tsconfig@7.0.0': {}
 
   '@types/deasync@0.1.5': {}
 
