@@ -1,26 +1,19 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@sindresorhus/tsconfig",
   "compilerOptions": {
-    "composite": false,
-    "declaration": true,
-    "declarationMap": true,
+    "moduleResolution": "bundler",
+    "module": "esnext",
+
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "inlineSources": false,
-    "isolatedModules": true,
-    "moduleResolution": "node",
-    "module": "ESNext",
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "preserveWatchOutput": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "downlevelIteration": true,
+    "allowJs": true,
+
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "tor-ctrl": ["./src/index.ts"]
+      "@/*": ["./src/*"]
     }
   },
-  "include": ["**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+  "exclude": ["node_modules", "dist"]
 }
