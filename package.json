@@ -50,7 +50,7 @@
   },
   "prettier": "@shahrad/prettier-config",
   "dependencies": {
-    "deasync": "^0.1.30"
+    "@se-oss/deasync": "^1.0.1"
   },
   "devDependencies": {
     "@shahrad/eslint-config": "^1.0.0",
@@ -68,7 +68,7 @@
     "vitest": "^2.1.8"
   },
   "peerDependencies": {
-    "deasync": "^0.1.30"
+    "@se-oss/deasync": "^1"
   },
   "packageManager": "pnpm@9.15.3"
 }
