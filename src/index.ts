@@ -1,6 +1,6 @@
 import process from 'node:process';
 import { clearTimeout, setTimeout } from 'node:timers';
-import deasync from 'deasync';
+import { loopWhile } from '@se-oss/deasync';
 
 import { EXIT_SIGNAL, SIGNAL_EXIT_CODE } from '@/constants';
 import type { ExitHook, ExitOptions, Signal, SignalHandler, UnsubscribeFn } from '@/typings';
@@ -128,7 +128,7 @@ async function exit(signal: Signal) {
   clearTimeout(asyncTimer);
 
   const start = Date.now();
-  deasync.loopWhile(() => !isDone && Date.now() - start < forceAfter);
+  loopWhile(() => !isDone && Date.now() - start < forceAfter);
 
   return done();
 }
