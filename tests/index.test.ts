@@ -1,8 +1,6 @@
 import { execa, ExecaError } from 'execa';
 import { describe, expect, test } from 'vitest';
 
-import { Signal } from '@/typings';
-
 describe('Exit Signal', () => {
   test('should exit code be zero', async () => {
     const subprocess = execa(process.execPath, ['./tests/fixtures/zero.js']);
@@ -24,10 +22,10 @@ describe('Exit Signal', () => {
 });
 
 describe('Signal', () => {
-  const signals = [
+  const signals = <const>[
     ['SIGINT', 130],
     ['SIGTERM', 143],
-  ] satisfies [Signal, number][];
+  ];
 
   for (const [signal, exitCode] of signals) {
     test(`should exit with ${signal} signal`, async () => {
@@ -43,7 +41,7 @@ describe('Signal', () => {
         expect(error).toBeInstanceOf(ExecaError);
         expect((error as ExecaError).exitCode).toBe(exitCode);
         expect((error as ExecaError).stderr).toBe('');
-        expect((error as ExecaError).stdout).toBe(`${signal}\n${signal}`);
+        expect((error as ExecaError).stdout).toBe(`${exitCode}\n${exitCode}`);
       }
     });
   }
