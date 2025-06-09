@@ -5,7 +5,7 @@
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat)](/LICENSE)
 [![Install Size](https://packagephobia.com/badge?p=exit-signal)](https://packagephobia.com/result?p=exit-signal)
 
-_exit-signal_ is a Node.js utility for handling process termination gracefully. Register custom exit handlers for signals like `SIGINT` and `SIGTERM` to ensure proper cleanup and resource management.
+_exit-signal_ is a Node.js utility for handling process termination gracefully. The `process.on('exit')` event does not capture every method by which a process can terminate. By registering custom exit handlers, you can ensure proper cleanup and effective resource management.
 
 ---
 
@@ -24,25 +24,22 @@ npm install exit-signal
 ## 📖 Usage
 
 ```typescript
-import { gracefullyExit, onExit, onExitSignal } from 'exit-signal';
+import { gracefullyExit, onExit } from 'exit-signal';
 
 // Example 1: Register a simple exit handler
-onExit(() => {
+const unsubscribe = onExit(() => {
   console.log('Process is exiting... Cleaning up resources.');
 });
 
+// Unsubscribe the handler
+unsubscribe();
+
 // Example 2: Register an exit handler for specific signals
-const unsubscribe = onExitSignal(['SIGINT', 'SIGTERM'], async (signal) => {
-  console.log(`Received ${signal}. Performing async cleanup...`);
+onExit(async (exitCode) => {
+  console.log(`Received ${exitCode}. Performing async cleanup...`);
   await new Promise((resolve) => setTimeout(resolve, 1000));
   console.log('Cleanup completed.');
 });
-
-// Unsubscribe example (optional)
-setTimeout(() => {
-  unsubscribe();
-  console.log('Exit handler removed.');
-}, 5000);
 
 // Example 3: Trigger a graceful exit manually
 gracefullyExit();
@@ -64,16 +61,6 @@ For all configuration options, please see [the API docs](https://www.jsdocs.io/p
  * @returns {UnsubscribeFn} - A function to remove the exit hook.
  */
 function onExit(handler: SignalHandler, options?: ExitOptions): UnsubscribeFn;
-
-/**
- * Registers an exit handler for a specific signal or multiple signals.
- *
- * @param {Signal | Signal[]} signal - The signal(s) to listen for.
- * @param {SignalHandler} handler - The function to execute when the signal is received.
- * @param {ExitOptions} [options={}] - Optional configurations for the exit hook.
- * @returns {UnsubscribeFn} - A function to remove the exit hook.
- */
-function onExitSignal(signal: Signal | Signal[], handler: SignalHandler, options?: ExitOptions): UnsubscribeFn;
 
 /**
  * Initiates a graceful exit by triggering the SIGINT signal.
