@@ -1,11 +1,3 @@
-import type { EXIT_SIGNAL } from '@/constants';
-
-/**
- * Represents a signal that can trigger process termination.
- * @see https://nodejs.org/api/process.html#signal-events
- */
-export type Signal = (typeof EXIT_SIGNAL)[number];
-
 /**
  * A utility type for handling both synchronous and asynchronous values.
  */
@@ -14,10 +6,10 @@ type MaybePromise<T> = T | Promise<T>;
 /**
  * Function signature for signal handlers.
  *
- * @param {Signal} signal - The signal received by the process.
+ * @param {exitCode} number - The exit code received by the process.
  * @returns {MaybePromise<any>} - A possible promise to handle async cleanup.
  */
-export type SignalHandler = (signal: Signal) => MaybePromise<any>;
+export type SignalHandler = (exitCode: number) => MaybePromise<any>;
 
 /**
  * Options for configuring an exit hook.
