@@ -1,5 +1,5 @@
 import { onExit } from '../../dist/index.js';
 
-onExit((c) => {
+onExit(() => {
   // noop
 });
