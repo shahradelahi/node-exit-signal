@@ -1,6 +1,6 @@
 {
   "name": "exit-signal",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "A Node.js library for handling graceful process exits and shutdown signals.",
   "keywords": [
     "exit",
