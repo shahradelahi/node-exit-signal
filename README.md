@@ -49,25 +49,6 @@ gracefullyExit();
 
 For all configuration options, please see [the API docs](https://www.jsdocs.io/package/exit-signal).
 
-##### API
-
-<!-- prettier-ignore -->
-```typescript
-/**
- * Registers an exit handler that will be called on process termination.
- *
- * @param {SignalHandler} handler - The function to execute on exit.
- * @param {ExitOptions} [options={}] - Optional configurations for the exit hook.
- * @returns {UnsubscribeFn} - A function to remove the exit hook.
- */
-function onExit(handler: SignalHandler, options?: ExitOptions): UnsubscribeFn;
-
-/**
- * Initiates a graceful exit by triggering the SIGINT signal.
- */
-function gracefullyExit(): void;
-```
-
 ## 🤝 Contributing
 
 Want to contribute? Awesome! To show your support is to star the project, or to raise issues on [GitHub](https://github.com/shahradelahi/node-exit-signal)

@@ -128,11 +128,26 @@ async function exit(exitCode: number) {
 // -- Exported ------------------------
 
 /**
- * Registers an exit handler that will be called on process termination.
+ * Registers an exit handler that will be called when the process is terminating.
+ * The handler receives the exit code and can perform synchronous or asynchronous cleanup.
  *
- * @param {SignalHandler} handler - The function to execute on exit.
- * @param {ExitOptions} [options={}] - Optional configurations for the exit hook.
- * @returns {UnsubscribeFn} - A function to remove the exit hook.
+ * @param handler - The function to execute on exit. Receives the process exit code.
+ * @param options - Optional configurations for the exit hook, such as a timeout in milliseconds.
+ * @returns A function to unsubscribe and remove the registered exit hook.
+ *
+ * @example
+ * ```ts
+ * import { onExit } from 'exit-signal';
+ *
+ * // Register a cleanup handler
+ * const unsubscribe = onExit(async (code) => {
+ *   console.log(`Cleaning up before exit with code ${code}`);
+ *   await cleanupResources();
+ * }, { timeout: 3000 });
+ *
+ * // Later, if needed, remove the hook
+ * unsubscribe();
+ * ```
  */
 export function onExit(handler: SignalHandler, options: ExitOptions = {}): UnsubscribeFn {
   const index = addHook(handler, options);
@@ -143,8 +158,17 @@ export function onExit(handler: SignalHandler, options: ExitOptions = {}): Unsub
 }
 
 /**
- * Initiates a graceful exit by triggering the SIGINT signal.
+ * Initiates a graceful exit by triggering the exit handlers and exiting with code 0.
+ * This is equivalent to sending a SIGINT signal programmatically.
+ *
+ * @example
+ * ```ts
+ * import { gracefullyExit } from 'exit-signal';
+ *
+ * // Trigger all registered exit hooks and exit with code 0
+ * gracefullyExit();
+ * ```
  */
-export function gracefullyExit() {
+export function gracefullyExit(): void {
   exit(0).then(() => {});
 }
