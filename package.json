@@ -44,7 +44,7 @@
     "format:check": "prettier --check .",
     "lint": "pnpm typecheck && eslint .",
     "lint:fix": "eslint --fix .",
-    "prepublishOnly": "pnpm lint && pnpm build && pnpm format:check && pnpm test",
+    "prepublishOnly": "pnpm build && pnpm lint && pnpm format:check && pnpm test",
     "test": "vitest --run",
     "typecheck": "tsc --noEmit"
   },
