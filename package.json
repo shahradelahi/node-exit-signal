@@ -55,7 +55,7 @@
   "devDependencies": {
     "@shahrad/eslint-config": "^1.0.0",
     "@shahrad/prettier-config": "^1.2.2",
-    "@shahrad/tsconfig": "^1.1.0",
+    "@shahrad/tsconfig": "^2.0.0",
     "@types/node": "^22.13.10",
     "eslint": "^9.22.0",
     "execa": "^9.5.2",
