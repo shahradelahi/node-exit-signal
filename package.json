@@ -58,7 +58,7 @@
     "@shahrad/tsconfig": "^1.1.0",
     "@types/node": "^22.13.10",
     "eslint": "^9.22.0",
-    "execa": "^9.5.2",
+    "execa": "^10.0.0",
     "globals": "^15.15.0",
     "prettier": "^3.5.3",
     "tsup": "^8.4.0",
